@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 namespace GameTools
 {
 
@@ -12,7 +13,7 @@ namespace GameTools
         public int rES;   // subtracted from attacker's damage roll
         public int tUF;   // Number of hits you can sustain before RES falters to zero
         public int perTurnAP;
-        int initiative;
+        public int initiative;
         public EnumCombatantControl control;
 
         public StructCombatantData
@@ -39,6 +40,7 @@ namespace GameTools
             control = _control;
         }
     }
+    /*
     public struct StructBadStatusEffect
     {
         public EnumBadStatusEffects effect;
@@ -49,6 +51,14 @@ namespace GameTools
     {
         public EnumGoodStatusEffects effect;
         public int bonus;
+        public int remainingTurns;
+    }
+    */
+
+    public struct StructStatusEffect
+    {
+        public EnumStatusEffects effect;
+        public int value;
         public int remainingTurns;
     }
 
@@ -66,6 +76,17 @@ namespace GameTools
         public const string COMBATANT_TAG = "COMBATANT";
     }
 
+    public static class AnimNames
+    {
+        public const string IDLE = "IDLE";
+        public const string RUN = "RUN";
+        public const string RUN_BACK = "RUN_BACK";
+        public const string BLOCK = "BLOCK";
+        public const string DIE = "DIE";
+        public const string HEAL = "HEAL";
+        public const string REACT = "REACT";
+    }
+
 
 
     public enum EnumCombatantControl
@@ -76,7 +97,8 @@ namespace GameTools
     public enum EnumCardType
     {
         ATTACK,
-        UTILITY
+        UTILITY,
+        STATUS_EFFECT
     }
     public enum EnumAttackType
     {
@@ -88,6 +110,7 @@ namespace GameTools
         HEAL,
         RESOLVE
     }
+    /*
     public enum EnumBadStatusEffects
     {
         VULNERABLE, // - ro RES
@@ -102,17 +125,63 @@ namespace GameTools
         QUICK,     // + to EVA
         DECISIVE   // + to AP
     }
+    */
+
+    public enum EnumStatusEffects
+    {
+        VULNERABLE, // - to RES
+        WEAK,       // - to TUF
+        SLOW,       // - to EVA
+        CONFUSED,    // - to AP
+        PROTECTED, // + to RES
+        STRONG,    // + to TUF
+        QUICK,     // + to EVA
+        DECISIVE   // + to AP
+    }
+
     public enum EnumFocus
     {
         FOCUSED, // it is your turn
         UNFOCUSED // it is not your turn
     }
+
+    //not sure if we need EnumActionType yet
     public enum EnumActionType
     {
         ATTACK,
         UTILITY,
         REPLACE_CARD,
     }
+
+    public class RandomTools
+    {
+        public static List<T> ShuffleList<T>(List<T> inList)
+        {
+            List<T> inListCopy = new List<T>(inList);
+
+            // Fisher-Yates Shuffle
+            for (int i = inListCopy.Count - 1; i > 0; i--)
+            {
+                int j = Random.Range(0, i + 1);
+                (inListCopy[i], inListCopy[j]) = (inListCopy[j], inListCopy[i]);
+            }
+            return inListCopy;
+        }
+
+        public static List<T> GetUniqueRandomElements<T>(List<T> inList, int count)
+        {
+            if (count < 1)
+            {
+                Debug.LogWarning("Count must be > 0 -- setting to 1");
+                count = 1;
+            }
+            List<T> outList = new List<T>();
+            List<T> shuffledInListCopy = ShuffleList<T>(inList);
+            outList = shuffledInListCopy.GetRange(0, count);
+            return outList;
+        }
+    }
+
 }
 
 
