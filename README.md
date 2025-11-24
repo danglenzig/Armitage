@@ -1,12 +1,11 @@
-\# Project Armitage
+# Project Armitage
+
+
+## Overview
 
 
 
-\## Overview
-
-
-
-\_Armitage\_ (an internal project name, game title TBD) is a turn-based combat prototype that blends card play and dice mechanics. Each combatant alternates turns, spending Action Points (AP) to play cards that perform attacks or utility actions. Dice rolls determine combat outcomes.
+_Armitage_ (an internal project name, game title TBD) is a turn-based combat prototype that blends card play and dice mechanics. Each combatant alternates turns, spending Action Points (AP) to play cards that perform attacks or utility actions. Dice rolls determine combat outcomes.
 
 
 
