@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 using GameTools;
+using GameEvents;
+
+
 
 
 public class Deck
@@ -14,7 +17,7 @@ public class Deck
 
     public List<string> CardIDs { get => cardIDs; }
     public List<string> DrawPile { get => drawPile; }
-    public List<string> InHand { get => InHand; }
+    public List<string> InHand { get => inHand; }
     public List<string> DiscardPile { get => discardPile; }
     public Deck(DeckDataSO deckData)
     {
@@ -72,8 +75,13 @@ public class Deck
         {
             RecycleDiscards();
         }
-    }
+        for (int i = 0; i < cardsNeeded; i++)
+        {
+            inHand.Add(drawPile[0]);
+            drawPile.RemoveAt(0);
+        }
 
+    }
     public List<string> ShuffleDeck(List<string> pile)
     {
         return RandomTools.ShuffleList(pile); // returns a copy of pile in randomized order
@@ -85,35 +93,65 @@ public class CombatantController : MonoBehaviour
 {
     [SerializeField] private CombatantSO combatantDataContainer;
     [SerializeField] private DeckDataSO deckDataContainer;
+    [SerializeField] private SpriteRenderer focusIndicator;
+
+    [Header("Events")]
+    [SerializeField] private AttackCardDataEvent attackCardSelectedEvent;
+    [SerializeField] private UtilityCardDataEvent utilityCardSelectedEvent;
+    [SerializeField] private StatusEffectCardDataEvent statusEffectCardSelectedEvent;
+    [SerializeField] private GenericCardDataEvent cardDiscardedEvent;
 
     private StructCombatantData myData;
     private Deck myDeck = null;
+    private EnumFocus focusState = EnumFocus.UNFOCUSED;
+    private string combatantID = string.Empty; // uniquely identifies this combatant during the present encounter
+
+    public string CombatantID { get => combatantID; }
+    public StructCombatantData CombatantData { get => myData; }
+    public EnumFocus FocusState { get => focusState; }
+
+    
 
     private void Awake()
     {
+        combatantID = System.Guid.NewGuid().ToString(); 
         myData = combatantDataContainer.Data;
         myDeck = new Deck(deckDataContainer);
     }
 
     private void Start()
     {
-        myDeck.InitializeDeck();
-        foreach(string cardID in myDeck.DrawPile)
-        {
-            StructCardData? cardData = myDeck.GetCardDataByID(cardID);
-            if (cardData != null)
-            {
-                Debug.Log(cardData.Value.cardName);
-                //////
-            }
-        }
+        
     }
 
+    public void DealHand()
+    {
+        Debug.Log($"Dealing {myData.combatantName}'s first hand...");
+        myDeck.InitializeDeck();
+        myDeck.DrawUp();
+    }
+
+    private string DebugDeckState()
+    {
+        return $"Draw pile: {myDeck.DrawPile.Count}\nIn-hand: {myDeck.InHand.Count}\nDiscard pile: {myDeck.DiscardPile.Count}";
+    }
+
+    public void SetFocus(EnumFocus _focusState)
+    {
+        focusState = _focusState;
+        focusIndicator.enabled = focusState == EnumFocus.FOCUSED;
+    }
 
     private void OnValidate()
     {
         if (GetComponent<CombatantSprite>() == null) { Debug.LogError("CombatantSprite component missing"); return; }
         if (combatantDataContainer == null) { Debug.LogError("Add a combatant data SO"); return; }
         if (deckDataContainer == null) { Debug.LogError("Add a deck data SO"); return; }
+        if (focusIndicator == null) { Debug.LogError("Add a focus indicator"); return; }
+
+        if (combatantDataContainer.Data.control == EnumCombatantControl.CPU)
+        {
+            if (GetComponent<EncounterAI>() == null) { Debug.LogError("EncounterAI component missing"); return; }
+        }
     }
 }

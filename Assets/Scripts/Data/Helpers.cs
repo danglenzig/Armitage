@@ -74,6 +74,32 @@ namespace GameTools
         public const int DEFAULT_INITIATIVE = 0;
 
         public const string COMBATANT_TAG = "COMBATANT";
+        public const string ENCOUNTER_CONTROLLER_TAG = "ENCOUNTER_CONTROLLER";
+        public const string ENCOUNTER_CANVAS_TAG = "ENCOUNTER_CANVAS";
+
+        public const string BEGIN_STATE = "BEGIN";
+        public const string DEAL_STATE = "DEAL";
+        public const string DECIDE_TURN_STATE = "DECIDE_TURN";
+        public const string SELECT_CARD_STATE = "SELECT_CARD";
+        public const string SELECT_ACTION_STATE = "SELECT_ACTION";
+        public const string SELECT_TARGET_STATE = "SELECT_TARGET";
+        public const string RESOLVE_EFFECT_STATE = "RESOLVE_EFFECT";
+        public const string DRAW_UP_STATE = "DRAW_UP";
+        public const string CHECK_WIN_STATE = "CHECK_WIN";
+        public const string END_STATE = "END";
+
+        public const string TO_BEGIN = "TO_BEGIN";
+        public const string TO_DEAL = "TO_DEAL";
+        public const string TO_DECIDE_TURN = "TO_DECIDE_TURN";
+        public const string TO_SELECT_CARD = "TO_SELECT_CARD";
+        public const string TO_SELECT_ACTION = "TO_SELECT_ACTION";
+        public const string TO_SELECT_TARGET = "TO_SELECT_TARGET";
+        public const string TO_RESOLVE_EFFECT = "TO_RESOLVE_EFFECT";
+        public const string TO_DRAW_UP = "TO_DRAW_UP";
+        public const string TO_CHECK_WIN = "TO_CHECK_WIN";
+        public const string TO_END = "TO_END";
+
+
     }
 
     public static class AnimNames

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334c35569e748b545afcea7c81400b17, type: 3}
+  m_Name: ToDecideTurn
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine.StateTransitionSO
+  toState: {fileID: 11400000, guid: a2661a715d6f68546a33b54437eed5d2, type: 2}
+  transitionName: TO_DECIDE_TURN
+  eventString: TO_DECIDE_TURN
+  transitionID: 40d437c5-ab3d-4579-a3f6-2202f2980c7e

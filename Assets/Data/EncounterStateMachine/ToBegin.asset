@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334c35569e748b545afcea7c81400b17, type: 3}
+  m_Name: ToBegin
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine.StateTransitionSO
+  toState: {fileID: 11400000, guid: c843e67b14d21304193f5236c400f3fb, type: 2}
+  transitionName: TO_BEGIN
+  eventString: TO_BEGIN
+  transitionID: aacb2de0-6269-4fe0-b637-2dcf3c147d49

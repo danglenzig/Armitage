@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c07a7f9c0932b459ce8790f21596b3, type: 3}
+  m_Name: CheckWin
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine.StateSO
+  stateName: CHECK_WIN
+  transitions:
+  - {fileID: 11400000, guid: 6a70524e9ead3ac47a9e7d62cf7bda06, type: 2}
+  - {fileID: 11400000, guid: 443f535602b8e8e42946799fa627b6a9, type: 2}
+  stateID: c7b3a277-6464-4f11-a54c-0e9e69f0cc27
