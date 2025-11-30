@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d4ec196cfcc75f488e17fb9442dbbf9, type: 3}
+  m_Name: SpinnerData
+  m_EditorClassIdentifier: Assembly-CSharp::ChanceTools.SpinnerDataSO
+  spinnerName: Generic Spinner
+  startInterval: 0.05
+  endInterval: 0.5
+  slowdown: 1.1
+  onSpinVariance: 0.2
+  numberOfValues: 6
+  randomizeInitialValue: 0
+  wheelMode: 0

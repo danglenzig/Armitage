@@ -14,12 +14,21 @@ public class EncounterController : MonoBehaviour
     [SerializeField] private StatusEffectCardDataEvent statusEffectCardSelectedEvent;
     [SerializeField] private GenericCardDataEvent cardDiscardedEvent;
 
+    [Header("Dice")]
+    [SerializeField] private Die damageDie;
+    [SerializeField] private Die[] attackdice;
+
+    [Header("UI")]
+    [SerializeField] private EncounterCanvas encounterCanvas;
+
 
     private List<CombatantController> combatants = new List<CombatantController>();
     private CombatantController focusedCombatant = null;
     private List<string> playerPartyIDs = new List<string>();
     private List<string> opponentPartyIDs = new List<string>();
     private int turnIdx = -1;
+
+    
 
     private void Awake()
     {
