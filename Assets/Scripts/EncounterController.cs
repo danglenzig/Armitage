@@ -107,7 +107,7 @@ public class EncounterController : MonoBehaviour
     private void HandlePlayerSelectCard(CombatantController playerCombatant)
     {
         EncounterCanvas encounterUI = GameObject.FindGameObjectWithTag(Constants.ENCOUNTER_CANVAS_TAG).GetComponent<EncounterCanvas>();
-        // tell the encounterUI to display the player in-hand cards
+        encounterUI.DisplayInHand(playerCombatant.CombatantDeck);
     }
     private void HandleCPUSelectCard(CombatantController cpuCombatant)
     {

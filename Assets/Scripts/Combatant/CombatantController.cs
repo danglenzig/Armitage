@@ -109,6 +109,7 @@ public class CombatantController : MonoBehaviour
     public string CombatantID { get => combatantID; }
     public StructCombatantData CombatantData { get => myData; }
     public EnumFocus FocusState { get => focusState; }
+    public Deck CombatantDeck { get => myDeck; }
 
     
 
@@ -130,6 +131,13 @@ public class CombatantController : MonoBehaviour
         myDeck.InitializeDeck();
         myDeck.DrawUp();
     }
+
+    /*
+    public List<CardSO> GetInHandCards()
+    {
+        //return
+    }
+    */
 
     private string DebugDeckState()
     {
