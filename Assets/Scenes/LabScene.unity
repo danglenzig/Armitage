@@ -1534,16 +1534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EncounterController
   encounterStateMachine: {fileID: 11400000, guid: 38e2d76c34f1b5448bbb33e78eca9b11, type: 2}
-  attackCardSelectedEvent: {fileID: 11400000, guid: 20e2bf17ab1bc104c9811749ac5f9f8f, type: 2}
-  utilityCardSelectedEvent: {fileID: 11400000, guid: a035ba15b6829da4bba5ba2e8073ea8f, type: 2}
-  statusEffectCardSelectedEvent: {fileID: 11400000, guid: 675b900a106856143a78d22684dca1d6, type: 2}
-  cardDiscardedEvent: {fileID: 11400000, guid: 04f339838c356c644a20f8e23a8e0b93, type: 2}
-  damageDie: {fileID: 0}
-  attackdice:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  encounterCanvas: {fileID: 0}
+  cardSelectedEvent: {fileID: 11400000, guid: fd49f16b78d2f7a4db4435c31199996b, type: 2}
 --- !u!4 &2094893628
 Transform:
   m_ObjectHideFlags: 0

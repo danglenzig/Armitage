@@ -13,6 +13,28 @@ public class EncounterCanvas : MonoBehaviour
         inHandCardsHolder.SetActive(false);
     }
 
+    public void FixOnSelectActionInHand(string selectedCardID)
+    {
+        foreach (CardUI card in cardUIs)
+        {
+            card.Selectable = false;
+            if (card.CurrentCardID == selectedCardID)
+            {
+                card.SetIsSubdued(false);
+            }
+            else
+            {
+                card.SetIsSubdued(true);
+            }
+        }
+        DisplaySelectedCardActionChoices(selectedCardID);
+    }
+
+    private void DisplaySelectedCardActionChoices(string selectedCardID)
+    {
+        
+    }
+
     public void DisplayInHand(Deck deck)
     {
         if (deck.InHand.Count != 5) { Debug.LogError("Five cards expected in hand"); return; }
@@ -22,6 +44,8 @@ public class EncounterCanvas : MonoBehaviour
             CardUI thisCardUI = cardUIs[i];
             StructCardData thisCardData = deck.GetCardDataByID(thisCardID).Value;
             thisCardUI.FixCardUI(thisCardData, thisCardID);
+            cardUIs[i].Selectable = true;
+            cardUIs[i].SetIsSubdued(false);
 
             switch (thisCardData.cardType)
             {

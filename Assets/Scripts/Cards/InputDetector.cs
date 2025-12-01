@@ -6,23 +6,23 @@ using Unity.VisualScripting;
 
 public class InputDetector : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public event System.Action MouseEntered;
+    public event System.Action MouseExited;
+    public event System.Action MouseClicked;
+
     private bool pointerIsIn = false;
-    private string myID = System.Guid.NewGuid().ToString();
-    
     public void OnPointerEnter(PointerEventData eventData)
     {
-        pointerIsIn = true;
-        Debug.Log($"Enter {myID}");
+        MouseEntered?.Invoke();
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        pointerIsIn = false;
-        Debug.Log($"Exit {myID}");
+        MouseExited?.Invoke();
     }
     
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log($"click {myID}");
+        MouseClicked?.Invoke();
     }
 }

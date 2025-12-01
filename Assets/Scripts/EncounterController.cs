@@ -8,20 +8,23 @@ public class EncounterController : MonoBehaviour
 {
     [SerializeField] private StateMachineSO encounterStateMachine;
 
-    /*
+
     [Header("Events")]
+    [SerializeField] private StringPayloadEvent cardSelectedEvent;
+
+    /*
     [SerializeField] private AttackCardDataEvent attackCardSelectedEvent;
     [SerializeField] private UtilityCardDataEvent utilityCardSelectedEvent;
     [SerializeField] private StatusEffectCardDataEvent statusEffectCardSelectedEvent;
     [SerializeField] private GenericCardDataEvent cardDiscardedEvent;
     */
 
-    [Header("Dice")]
-    [SerializeField] private Die damageDie;
-    [SerializeField] private Die[] attackdice;
+    //[Header("Dice")]
+    //[SerializeField] private Die damageDie;
+    //[SerializeField] private Die[] attackdice;
 
-    [Header("UI")]
-    [SerializeField] private EncounterCanvas encounterCanvas;
+    //[Header("UI")]
+    //[SerializeField] private EncounterCanvas encounterCanvas;
 
 
     private List<CombatantController> combatants = new List<CombatantController>();
@@ -29,6 +32,8 @@ public class EncounterController : MonoBehaviour
     private List<string> playerPartyIDs = new List<string>();
     private List<string> opponentPartyIDs = new List<string>();
     private int turnIdx = -1;
+
+    private string selectedCardID = string.Empty;
 
     
 
@@ -48,12 +53,7 @@ public class EncounterController : MonoBehaviour
         {
             state.OnStateEntered += OnStateEntered;
         }
-        /*
-        attackCardSelectedEvent.OnEventTriggered += IngestAttackCardPlayedEvent;
-        utilityCardSelectedEvent.OnEventTriggered += IngestUtilityCardPlayedEvent;
-        statusEffectCardSelectedEvent.OnEventTriggered += IngestStatusEffectCardPlayedEvent;
-        cardDiscardedEvent.OnEventTriggered += IngestCardDiscardedEvent;
-        */
+        cardSelectedEvent.OnEventTriggered += HandleOnCardSelected;
     }
     private void OnDisable()
     {
@@ -61,12 +61,7 @@ public class EncounterController : MonoBehaviour
         {
             state.OnStateEntered -= OnStateEntered;
         }
-        /*
-        attackCardSelectedEvent.OnEventTriggered -= IngestAttackCardPlayedEvent;
-        utilityCardSelectedEvent.OnEventTriggered -= IngestUtilityCardPlayedEvent;
-        statusEffectCardSelectedEvent.OnEventTriggered -= IngestStatusEffectCardPlayedEvent;
-        cardDiscardedEvent.OnEventTriggered -= IngestCardDiscardedEvent;
-        */
+        cardSelectedEvent.OnEventTriggered -= HandleOnCardSelected;
     }
 
     private void OnDealStateEntered()
@@ -110,6 +105,30 @@ public class EncounterController : MonoBehaviour
             }
         }
     }
+    private void OnSelectActionStateEntered()
+    {
+        if (focusedCombatant.CombatantDeck.GetCardDataByID(selectedCardID) == null) { Debug.LogError("DONT HAVE THAT CARD"); return; }
+        StructCardData cardData = focusedCombatant.CombatantDeck.GetCardDataByID(selectedCardID).Value;
+
+        EncounterCanvas encounterUI = GameObject.FindGameObjectWithTag(Constants.ENCOUNTER_CANVAS_TAG).GetComponent<EncounterCanvas>();
+
+        if (focusedCombatant.CombatantData.control == EnumCombatantControl.PLAYER)
+        {
+            encounterUI.FixOnSelectActionInHand(selectedCardID);
+
+            // Play --> to SELECT_TARGET, 
+            // Discard --> to DRAW_UP
+            // Back --> to SELECT_CARD
+
+        }
+        else
+        {
+            // handle AI action select behavior
+        }
+
+
+    }
+
     private void HandlePlayerSelectCard(CombatantController playerCombatant)
     {
         EncounterCanvas encounterUI = GameObject.FindGameObjectWithTag(Constants.ENCOUNTER_CANVAS_TAG).GetComponent<EncounterCanvas>();
@@ -119,6 +138,14 @@ public class EncounterController : MonoBehaviour
     {
         EncounterAI cpuIO = cpuCombatant.GetComponent<EncounterAI>();
         //TODO:  class EncounterAI is just a blank monobehavior script right now...
+    }
+    private void HandleOnCardSelected(string cardID)
+    {
+        if (focusedCombatant.CombatantDeck.GetCardDataByID(cardID) == null) { Debug.LogError("DONT HAVE THAT CARD"); return; }
+        StructCardData cardData = focusedCombatant.CombatantDeck.GetCardDataByID(cardID).Value;
+        Debug.Log($"{focusedCombatant.CombatantData.combatantName} played {cardData.cardName}");
+        selectedCardID = cardID;
+        encounterStateMachine.TriggerTransition(Constants.TO_SELECT_ACTION);
     }
 
 
@@ -139,6 +166,7 @@ public class EncounterController : MonoBehaviour
                 OnSelectCardStateEntered();
                 return;
             case Constants.SELECT_ACTION_STATE:
+                OnSelectActionStateEntered();
                 return;
             case Constants.SELECT_TARGET_STATE:
                 return;
@@ -155,26 +183,14 @@ public class EncounterController : MonoBehaviour
 
         }
     }
+
+    
+
     private void OnStateExited(StateData stateData)
     {
 
     }
-    private void IngestAttackCardPlayedEvent(StructCardData cardData, StructAttackCardData attackCardData, string combatantID)
-    {
-
-    }
-    private void IngestUtilityCardPlayedEvent(StructCardData cardData, StructUtilityCardData utilityCardData, string combatantID)
-    {
-
-    }
-    private void IngestStatusEffectCardPlayedEvent(StructCardData cardData, StructStatusEffectCardData attackCardData, string combatantID)
-    {
-
-    }
-    private void IngestCardDiscardedEvent(StructCardData cardData, string CombatantID)
-    {
-
-    }
+    
     private void RegisterCombatants()
     {
         GameObject[] combatantObjs = GameObject.FindGameObjectsWithTag(Constants.COMBATANT_TAG);

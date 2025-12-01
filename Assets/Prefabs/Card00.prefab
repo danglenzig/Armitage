@@ -108,13 +108,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c069eae2b6439341a20e0e6eea1e0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardUI
-  faceImage: {fileID: 0}
+  faceImage: {fileID: 8409986349154154222}
   cardTypeText: {fileID: 4261572217425614764}
   cardNameText: {fileID: 5659056845590865164}
   actionCostText: {fileID: 6646953436028429808}
   attackCardUI: {fileID: 8098956099968609153}
   utilityCardUI: {fileID: 8689571045107257939}
   statusEffectCardUI: {fileID: 9047018016248113678}
+  inputDetector: {fileID: 5591589720479522772}
+  cardSelectedEvent: {fileID: 11400000, guid: fd49f16b78d2f7a4db4435c31199996b, type: 2}
 --- !u!1 &639315626767769043
 GameObject:
   m_ObjectHideFlags: 0
