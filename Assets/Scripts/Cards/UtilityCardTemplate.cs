@@ -1,16 +1,25 @@
 using UnityEngine;
+using GameTools;
+using TMPro;
 
 public class UtilityCardTemplate : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    [SerializeField] private TMP_Text utilityTypeText;
+    [SerializeField] private TMP_Text utilityValueText;
+
+    private string typePrefix = string.Empty;
+    private string valuePrefix = string.Empty;
+
+    private void Awake()
     {
-        
+        typePrefix = utilityTypeText.text;
+        valuePrefix = utilityValueText.text;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FixUtilityCardUI(StructUtilityCardData utilityData)
     {
-        
+        utilityTypeText.text = $"{typePrefix} {utilityData.utilityType.ToString()}";
+        utilityValueText.text = $"{valuePrefix} {utilityData.utilityValue.ToString()}";
     }
 }

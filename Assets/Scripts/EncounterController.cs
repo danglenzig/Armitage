@@ -8,11 +8,13 @@ public class EncounterController : MonoBehaviour
 {
     [SerializeField] private StateMachineSO encounterStateMachine;
 
+    /*
     [Header("Events")]
     [SerializeField] private AttackCardDataEvent attackCardSelectedEvent;
     [SerializeField] private UtilityCardDataEvent utilityCardSelectedEvent;
     [SerializeField] private StatusEffectCardDataEvent statusEffectCardSelectedEvent;
     [SerializeField] private GenericCardDataEvent cardDiscardedEvent;
+    */
 
     [Header("Dice")]
     [SerializeField] private Die damageDie;
@@ -46,10 +48,12 @@ public class EncounterController : MonoBehaviour
         {
             state.OnStateEntered += OnStateEntered;
         }
+        /*
         attackCardSelectedEvent.OnEventTriggered += IngestAttackCardPlayedEvent;
         utilityCardSelectedEvent.OnEventTriggered += IngestUtilityCardPlayedEvent;
         statusEffectCardSelectedEvent.OnEventTriggered += IngestStatusEffectCardPlayedEvent;
         cardDiscardedEvent.OnEventTriggered += IngestCardDiscardedEvent;
+        */
     }
     private void OnDisable()
     {
@@ -57,10 +61,12 @@ public class EncounterController : MonoBehaviour
         {
             state.OnStateEntered -= OnStateEntered;
         }
+        /*
         attackCardSelectedEvent.OnEventTriggered -= IngestAttackCardPlayedEvent;
         utilityCardSelectedEvent.OnEventTriggered -= IngestUtilityCardPlayedEvent;
         statusEffectCardSelectedEvent.OnEventTriggered -= IngestStatusEffectCardPlayedEvent;
         cardDiscardedEvent.OnEventTriggered -= IngestCardDiscardedEvent;
+        */
     }
 
     private void OnDealStateEntered()

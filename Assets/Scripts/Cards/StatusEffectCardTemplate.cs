@@ -1,16 +1,27 @@
 using UnityEngine;
+using TMPro;
 
 public class StatusEffectCardTemplate : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private TMP_Text statusEffectText;
+    [SerializeField] private TMP_Text statusEffectValueText;
+    [SerializeField] private TMP_Text statusEffectTurnsText;
+
+    string statusEffectPrefix = string.Empty;
+    string valuePrefix = string.Empty;
+    string turnsPrefix = string.Empty;
+
+    private void Awake()
     {
-        
+        statusEffectPrefix = statusEffectText.text;
+        valuePrefix = statusEffectValueText.text;
+        turnsPrefix = statusEffectTurnsText.text;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FixStatusEffectUI(StructStatusEffectCardData statusEffectData)
     {
-        
+        statusEffectText.text = $"{statusEffectPrefix} {statusEffectData.effect.ToString()}";
+        statusEffectValueText.text = $"{valuePrefix} {statusEffectData.value.ToString()}";
+        statusEffectTurnsText.text = $"{turnsPrefix} {statusEffectData.turnsDuration.ToString()}";
     }
 }
