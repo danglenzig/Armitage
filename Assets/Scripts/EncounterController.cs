@@ -12,20 +12,6 @@ public class EncounterController : MonoBehaviour
     [Header("Events")]
     [SerializeField] private StringPayloadEvent cardSelectedEvent;
 
-    /*
-    [SerializeField] private AttackCardDataEvent attackCardSelectedEvent;
-    [SerializeField] private UtilityCardDataEvent utilityCardSelectedEvent;
-    [SerializeField] private StatusEffectCardDataEvent statusEffectCardSelectedEvent;
-    [SerializeField] private GenericCardDataEvent cardDiscardedEvent;
-    */
-
-    //[Header("Dice")]
-    //[SerializeField] private Die damageDie;
-    //[SerializeField] private Die[] attackdice;
-
-    //[Header("UI")]
-    //[SerializeField] private EncounterCanvas encounterCanvas;
-
 
     private List<CombatantController> combatants = new List<CombatantController>();
     private CombatantController focusedCombatant = null;
@@ -34,6 +20,8 @@ public class EncounterController : MonoBehaviour
     private int turnIdx = -1;
 
     private string selectedCardID = string.Empty;
+
+    
 
     
 
@@ -83,6 +71,7 @@ public class EncounterController : MonoBehaviour
         }
         Debug.Log($"It is {focusedCombatant.CombatantData.combatantName}'s turn.");
         encounterStateMachine.TriggerTransition(Constants.TO_SELECT_CARD);
+        focusedCombatant.AvailableAP = focusedCombatant.CombatantData.perTurnAP;
     }
 
     private void OnSelectCardStateEntered()
@@ -116,9 +105,16 @@ public class EncounterController : MonoBehaviour
         {
             encounterUI.FixOnSelectActionInHand(selectedCardID);
 
+            int availableAP = focusedCombatant.AvailableAP;
+
+
+
+            //int availableAP = focusedCombatant.CombatantData.
+
             // Play --> to SELECT_TARGET, 
             // Discard --> to DRAW_UP
             // Back --> to SELECT_CARD
+            // End Turn --> to DECIDE_TURN
 
         }
         else

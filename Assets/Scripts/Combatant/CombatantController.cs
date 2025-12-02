@@ -105,6 +105,7 @@ public class CombatantController : MonoBehaviour
     private Deck myDeck = null;
     private EnumFocus focusState = EnumFocus.UNFOCUSED;
     private string combatantID = string.Empty; // uniquely identifies this combatant during the present encounter
+    private int availableAP = 0;
 
     public string CombatantID { get => combatantID; }
     public StructCombatantData CombatantData { get => myData; }
@@ -112,6 +113,11 @@ public class CombatantController : MonoBehaviour
     public Deck CombatantDeck { get => myDeck; }
 
     
+    [HideInInspector] public int AvailableAP
+    {
+        get => availableAP;
+        set => availableAP = value;
+    }
 
     private void Awake()
     {
